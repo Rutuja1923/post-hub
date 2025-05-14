@@ -1,8 +1,26 @@
 import express from "express";
 import { db } from "./db";
 import { sql } from "drizzle-orm";
+import helmet from "helmet";
+import cors from "cors";
+import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import authRoutes from "./routes/auth-routes";
 
 const app = express();
+
+//middlewares
+app.use(helmet());
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+    credentials: true,
+  })
+);
+app.use(morgan("dev"));
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Root connection
 app.get("/", async (req, res) => {
@@ -13,7 +31,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-// DB health check
+//db health check
 app.get("/health", async (req, res) => {
   try {
     const result = await db.execute(sql`SELECT 1`);
@@ -32,5 +50,8 @@ app.get("/health", async (req, res) => {
     });
   }
 });
+
+//api routes
+app.use("/api/auth", authRoutes); 
 
 export default app;
