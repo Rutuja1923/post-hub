@@ -10,8 +10,7 @@ router.post("/login", authController.login);
 //protected route - logout
 router.post("/logout", checkForAuthentication, authController.logout);
 
-router.get("/me", checkForAuthentication, (req, res) => {
-  res.json({ user: req.user });
-});
+//get profile
+router.get("/me", checkForAuthentication, authController.me);
 
-export default router;
+export const authRoutes = router;
