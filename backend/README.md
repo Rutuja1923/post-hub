@@ -1,8 +1,8 @@
-# 📝 PostHub Backend
+# PostHub Backend
 
 This is the backend API for **PostHub**, a blog and social interaction platform that supports user authentication, post management, likes, comments, and categories (admin-controlled). Built using **Node.js**, **Express**, **TypeScript**, and **PostgreSQL** with **Drizzle ORM**.
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **Node.js**
 - **Express.js**
