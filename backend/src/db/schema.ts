@@ -61,7 +61,6 @@ export const userDetailsTable = pgTable(
       .unique(),
     fullName: varchar("full_name", { length: 100 }),
     bio: text("bio"),
-    profilePicUrl: text("profile_pic_url"),
     isPublic: boolean("is_public").default(true),
     location: varchar("location", { length: 100 }),
     website: varchar("website", { length: 255 }),
@@ -109,7 +108,6 @@ export const postsTable = pgTable(
     slug: varchar("slug", { length: 220 }).notNull(),
     content: text("content").notNull(),
     excerpt: varchar("excerpt", { length: 300 }),
-    imageUrl: text("image_url"),
     isPublished: boolean("is_published").default(true),
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
