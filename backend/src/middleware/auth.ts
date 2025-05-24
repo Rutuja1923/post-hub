@@ -39,11 +39,13 @@ export function restrictTo(roles: UserRole[]) {
     console.log("User in restrictTo:", req.user);
 
     if (!req.user) {
-      return res.status(401).json({ message: "Unauthorized" });
+      res.status(401).json({ status: "error", message: "Unauthorized" });
+      return;
     }
 
     if (!roles.includes(req.user.role)) {
-      return res.status(403).json({ message: "Forbidden" });
+      res.status(403).json({ status: "error", message: "Forbidden" });
+      return;
     }
 
     return next();
