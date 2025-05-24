@@ -5,7 +5,14 @@ import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
-import authRoutes from "./routes/auth-routes";
+import {
+  authRoutes,
+  userRoutes,
+  postRoutes,
+  commentRoutes,
+  likeRoutes,
+  categoryRoutes,
+} from "./routes";
 
 const app = express();
 
@@ -17,12 +24,13 @@ app.use(
     credentials: true,
   })
 );
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
+app.use(morgan(":method :url :status - :response-time ms"));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Root connection
+//root connection
 app.get("/", async (req, res) => {
   try {
     res.status(200).json({ message: "Hello" });
@@ -52,6 +60,11 @@ app.get("/health", async (req, res) => {
 });
 
 //api routes
-app.use("/api/auth", authRoutes); 
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/likes", likeRoutes);
+app.use("/api/categories", categoryRoutes);
 
 export default app;
