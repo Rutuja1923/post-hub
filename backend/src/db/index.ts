@@ -8,7 +8,12 @@ const client = postgres(DATABASE_URL);
 
 export const db = drizzle(client, {
   schema,
-  logger: true,
+  logger: {
+    logQuery: (query, params) => {
+      console.log("\nSQL QUERY:\n", query);
+      console.log("\nParams:\n", params, "\n");
+    }
+  },
 });
 
 export type Database = typeof db;
