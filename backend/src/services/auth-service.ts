@@ -21,7 +21,7 @@ export const AuthService = {
       ),
     });
 
-    if (!user) return null;
+    if (!user || user.status === "deleted") return null;
 
     const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
     if (!passwordMatch) return null;
